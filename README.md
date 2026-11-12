@@ -31,8 +31,32 @@ Use code with caution.
 4. Databricks Integration Resources
 
 • Official Solution Accelerator: Databricks maintains a TabPFN on Databricks GitHub repository with ready-to-use notebooks for classification, regression, outlier detection, and time-series forecasting.
-• Governance & Serving: Because TabPFNClassifier and TabPFNRegressor follow the standard scikit-learn API, you can log them with MLflow, register them in Unity Catalog, and deploy them to Mosaic AI Model Serving endpoints. [1] (https://www.youtube.com/watch?v=eZvY49qB4yY), [2] (https://github.com/databricks-industry-solutions/tabpfn-databricks), [3] (https://priorlabs.ai/blog-posts/tabpfn-on-databricks), [4] (https://pypi.org/project/tabpfn/2.0.0/), [5] (https://docs.priorlabs.ai/quickstart)
-If you'd like help getting started, tell me:
-• Are you running on CPU or GPU clusters?
+• Governance & Serving: Because TabPFNClassifier and TabPFNRegressor follow the standard scikit-learn API, you can log them with MLflow, register them in Unity Catalog, and deploy them to Mosaic AI Model Serving endpoints. [1] (https://www.youtube.com/watch?v=eZvY49qB4yY), [2] (https://github.com/databricks-industry-solutions/tabpfn-databricks), [3] (https://priorlabs.ai/blog-posts/tabpfn-on-databricks), [4] 
+
+
+(https://pypi.org/project/tabpfn/2.0.0/), [5] (https://docs.priorlabs.ai/quickstart)
+
+
+Yes, TabPFN can perform the same core time-series forecasting tasks as Prophet using its official time-series extension, TabPFN-TS (pip install tabpfn-time-series). [1] (https://github.com/PriorLabs/tabpfn-time-series)
+It works by breaking timestamps into calendar and seasonal features—such as day of the week, month, and cyclic frequencies—and solving the forecast as a zero-shot tabular regression problem without requiring model training or hyperparameter tuning. [1] (https://arxiv.org/html/2501.02945v4), [2] (https://docs.priorlabs.ai/capabilities/forecasting), [3] (https://medium.com/@ShubhamKothiya/tabpfn-ts-how-a-tabular-foundation-model-outperforms-specialized-time-series-forecasting-models-e06533e059f5)
+
+TabPFN-TS vs. Prophet
+
+
+Capability	TabPFN-TS	Meta Prophet
+Setup & Training	Zero-shot inference in a single forward pass with no fitting required.	Fits an additive/multiplicative curve model to your historical series.
+Seasonality & Calendars	Automatically extracts cyclic calendar features and dominant seasonal frequencies.	Excels at daily, weekly, and yearly seasonality plus built-in country holidays.
+External Regressors	Natively supports known future covariates and multiple interacting variables.	Supports extra regressors, though complex non-linear interactions require manual engineering.
+Uncertainty Intervals	Outputs full probabilistic quantile forecasts and calibrated confidence intervals.	Generates uncertainty intervals via Monte Carlo simulation.
+Trend Extrapolation	Weaker on long-term linear or exponential growth trends outside historical ranges.	Stronger at modeling long-term growth curves and automatic trend changepoints.
+Interpretability	Black-box transformer predictions (requires post-hoc feature attribution).	Highly transparent decomposition into explicit trend, holiday, and seasonal components.
+
+
+When to Choose Which
+
+• Use TabPFN-TS when your forecast depends heavily on external variables (such as promotions, weather, or pricing), complex non-linear calendar patterns, or missing historical data. [1] (https://github.com/PriorLabs/tabpfn-time-series), [2] (https://docs.priorlabs.ai/capabilities/forecasting)
+• Stick with Prophet when you have strong long-term growth trends, sharp structural changepoints, or need stakeholders to inspect separate trend and holiday curves. [1] (https://www.youtube.com/watch?v=8RbxKffv_BA), [2] (https://arxiv.org/html/2501.02945v4)
+
+
 • Roughly how many rows and columns are in your Delta tables?
 I can share a tailored Databricks notebook snippet for your setup.
