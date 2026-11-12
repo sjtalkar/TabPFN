@@ -1,4 +1,7 @@
 # TabPFN
+
+[For Time Series watch] (https://www.youtube.com/watch?v=8RbxKffv_BA)
+
 Running in Databricks TABPFN
 Yes, TabPFN can run directly inside Databricks. You can run it locally on your cluster's compute so your data never leaves your workspace, or connect to Prior Labs' hosted API if you do not have GPU clusters available. [1] (https://docs.priorlabs.ai/quickstart), [2] (https://priorlabs.ai/blog-posts/tabpfn-on-databricks), [3] (https://rehoyt.medium.com/tabpfn-v2-5-an-even-better-algorithm-68b72c6be5d5)
 
